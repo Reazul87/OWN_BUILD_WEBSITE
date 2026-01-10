@@ -2,10 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Calendar, User, ChevronRight, Clock } from "lucide-react";
-// NEXT_PUBLIC_EMAILJS_SERVICE_ID = service_62ueqse;
-// NEXT_PUBLIC_EMAILJS_TEMPLATE_ID = template_elc9tej;
-// NEXT_PUBLIC_EMAILJS_PUBLIC_KEY = gBwR6m0DS33gMqoc0;
-// NEXT_PUBLIC_EMAILJS_SUBSCRIBE_TEMPLATE_ID = template_tnueb8s;
+
 const blogs = [
   {
     id: 1,
