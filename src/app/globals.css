@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* ------------------------------
+   CSS Variables
+--------------------------------*/
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* ------------------------------
+   Dark mode (controlled by class)
+--------------------------------*/
+html.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+/* ------------------------------
+   Tailwind theme mapping
+--------------------------------*/
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ------------------------------
+   Base styles
+--------------------------------*/
+html {
+  scroll-behavior: smooth;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
