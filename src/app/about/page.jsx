@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { MapPin, Code, Briefcase, BookOpen, Award, Rocket } from "lucide-react";
+import { useTheme } from "@/context/ThemeProvider";
+import Image from "next/image";
 
 const stats = [
   { icon: Briefcase, value: 1, suffix: "+", label: "Years Experience" },
@@ -41,18 +43,35 @@ function AnimatedCounter({ value, suffix, inView }) {
 }
 
 export default function AboutSection() {
+  const { theme } = useTheme();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section
       id="about"
-      className="relative py-16 sm:py-10 overflow-hidden text-white/70"
+      className={`relative py-16 sm:py-10 overflow-hidden ${
+        theme === "dark" ? "text-white/70" : "text-black/90"
+      }`}
     >
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#111111] to-[#0a0a0a] rounded-xl" />
-      <div className="absolute top-1/3 left-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-[#FF6B00]/5 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 right-1/4 w-64 sm:w-80 h-64 sm:h-80 bg-[#00f0ff]/5 rounded-full blur-[80px]" />
+      <div
+        className={`absolute inset-0 ${
+          theme === "dark"
+            ? "bg-gradient-to-b from-[#0a0a0a] via-[#111111] to-[#0a0a0a]"
+            : ""
+        } rounded-xl`}
+      />
+      <div
+        className={`absolute top-1/3 left-1/4 w-72 sm:w-96 h-72 sm:h-96 ${
+          theme === "dark" ? "bg-[#FF6B00]/25 " : ""
+        }  rounded-full blur-[100px]`}
+      />
+      <div
+        className={`absolute bottom-0 right-1/4 w-64 sm:w-80 h-64 sm:h-80 ${
+          theme === "dark" ? "bg-[#00f0ff]/25 " : ""
+        } rounded-full blur-[80px]`}
+      />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -76,30 +95,58 @@ export default function AboutSection() {
             viewport={{ once: true }}
             className="w-full lg:w-1/2 relative px-2"
           >
-            <div className="relative px-2 py-3 sm:p-6 md:p-8 rounded-3xl bg-[#111111]/80 border border-white/10 backdrop-blur-sm">
+            <div
+              className={`relative px-2 py-3 sm:p-6 md:p-8 rounded-3xl ${
+                theme === "dark"
+                  ? "bg-[#111111]/80"
+                  : theme === "light"
+                  ? "bg-gray-100"
+                  : ""
+              }  border border-white/10 backdrop-blur-sm`}
+            >
               {/* Glow */}
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-[#FF6B00]/20 to-[#00f0ff]/20 blur-xl opacity-50" />
+              <div
+                className={`absolute -inset-1 rounded-3xl blur-xl opacity-50`}
+              />
 
               <div className="relative z-10">
                 {/* Avatar */}
                 <div className="relative w-48 sm:w-56 md:w-64 h-48 sm:h-56 md:h-64 mx-auto mb-4 rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="/profile.jpg"
                     alt="Md Reazul Hasan"
                     className="w-full h-full object-cover"
+                    width={200}
+                    height={180}
                   />
                 </div>
 
                 {/* Info */}
                 <div className="text-center">
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white/90 mb-1">
+                  <h3
+                    className={`text-xl sm:text-2xl md:text-3xl font-bold ${
+                      theme === "dark"
+                        ? "text-white/90"
+                        : theme === "light"
+                        ? "text-gray-800"
+                        : ""
+                    } mb-1`}
+                  >
                     Md Reazul Hasan
                   </h3>
                   <p className="text-[#FF6B00] text-sm sm:text-base font-medium mb-2">
                     Junior JavaScript / Full-Stack Developer
                   </p>
 
-                  <div className="flex items-center justify-center gap-2 text-gray-400 mb-4 text-sm">
+                  <div
+                    className={`flex items-center justify-center gap-2 ${
+                      theme === "dark"
+                        ? "text-gray-400"
+                        : theme === "light"
+                        ? "text-black/90"
+                        : ""
+                    } mb-4 text-sm`}
+                  >
                     <MapPin className="w-4 h-4 text-[#FF6B00]" />
                     <span>Bangladesh</span>
                   </div>
@@ -115,7 +162,13 @@ export default function AboutSection() {
                     ].map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs sm:text-sm text-gray-400"
+                        className={`${
+                          theme === "dark"
+                            ? "text-gray-400 bg-white/5 border-white/10"
+                            : theme === "light"
+                            ? "text-black/70 bg-white/90 border-gray-400"
+                            : ""
+                        } px-3 py-1.5 rounded-full border text-xs sm:text-sm`}
                       >
                         {tag}
                       </span>
@@ -129,12 +182,24 @@ export default function AboutSection() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute -top-2 md:-top-5 md:-right-2 -right-0 w-8 sm:w-16 h-8 sm:h-16 border border-[#FF6B00]/20 rounded-full"
+              className={`${
+                theme === "dark"
+                  ? "border-[#FF6B00]/20"
+                  : theme === "light"
+                  ? "border-[#FF6B00]/60"
+                  : ""
+              } absolute -top-2 md:-top-5 md:-right-2 -right-0 w-8 sm:w-16 h-8 sm:h-16 border  rounded-full`}
             />
             <motion.div
               animate={{ rotate: -360 }}
               transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              className="absolute md:-bottom-4 md:-left-3 -bottom-2 -left-1 w-8  sm:w-16 h-8 sm:h-16 border border-[#00f0ff]/20 rounded-full"
+              className={`${
+                theme === "dark"
+                  ? "border-[#00f0ff]/20"
+                  : theme === "light"
+                  ? "border-[#00f0ff]/60"
+                  : ""
+              } absolute md:-bottom-4 md:-left-3 -bottom-2 -left-1 w-8  sm:w-16 h-8 sm:h-16 border  rounded-full`}
             />
           </motion.div>
 
@@ -145,8 +210,16 @@ export default function AboutSection() {
             viewport={{ once: true }}
             className="w-full lg:w-1/2 space-y-6"
           >
-            <div className="space-y-4 text-sm sm:text-base px-2">
-              <p className="text-white/65 leading-relaxed">
+            <div
+              className={`space-y-4 text-sm sm:text-base px-2  ${
+                theme === "dark"
+                  ? "text-white/65"
+                  : theme === "light"
+                  ? "text-black/80"
+                  : ""
+              }`}
+            >
+              <p className={`leading-relaxed`}>
                 I'm a passionate{" "}
                 <span className="text-[#FF6B00] font-medium">
                   JavaScript developer
@@ -156,12 +229,12 @@ export default function AboutSection() {
                 <span className="text-[#00f0ff]">real-time applications</span>{" "}
                 and elegant interfaces.
               </p>
-              <p className="text-white/65 leading-relaxed">
+              <p className="leading-relaxed">
                 I specialize in the{" "}
                 <span className=" font-medium">React ecosystem</span>, including
                 Next.js for SSR and Node.js for backend development.
               </p>
-              <p className="text-white/65 leading-relaxed">
+              <p className="leading-relaxed">
                 Outside coding, I write blogs, explore new JS libraries, and
                 contribute to open-source projects.
               </p>
@@ -182,7 +255,13 @@ export default function AboutSection() {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
                     whileHover={{ scale: 1.05, y: -5 }}
-                    className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm text-center hover:border-[#FF6B00]/30 transition-all"
+                    className={`p-4 rounded-2xl ${
+                      theme === "dark"
+                        ? "bg-white/5"
+                        : theme === "light"
+                        ? "bg-gray-100"
+                        : ""
+                    } border border-white/20 backdrop-blur-sm text-center hover:border-[#FF6B00]/30 transition-all`}
                   >
                     <Icon className="w-5 sm:w-6 h-5 sm:h-6 text-[#FF6B00] mx-auto mb-2" />
                     <AnimatedCounter
@@ -190,7 +269,15 @@ export default function AboutSection() {
                       suffix={stat.suffix}
                       inView={isInView}
                     />
-                    <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                    <p
+                      className={`text-xs sm:text-sm ${
+                        theme === "dark"
+                          ? "text-gray-500"
+                          : theme === "light"
+                          ? "text-black/60"
+                          : ""
+                      } mt-1`}
+                    >
                       {stat.label}
                     </p>
                   </motion.div>

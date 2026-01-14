@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, ChevronRight, Layers } from "lucide-react";
 import Image from "next/image";
+import { useTheme } from "@/context/ThemeProvider";
 
 /* -------------------- DATA -------------------- */
 
@@ -54,6 +55,7 @@ const categories = [
 /* -------------------- COMPONENT -------------------- */
 
 export default function ProjectsSection() {
+  const { theme } = useTheme();
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filteredProjects =
@@ -64,7 +66,13 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative py-10 overflow-hidden text-white/70"
+      className={`relative py-10 overflow-hidden  ${
+        theme === "dark"
+          ? "text-white/70"
+          : theme === "light"
+          ? "text-black/80"
+          : ""
+      }`}
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4">
         {/* Header */}
@@ -72,7 +80,7 @@ export default function ProjectsSection() {
           <h2 className="text-3xl font-bold">
             My <span className="text-[#FF6B00]">Projects</span>
           </h2>
-          <p className="text-white/70 mt-3">
+          <p className="mt-3">
             A showcase of my work – from interactive frontends to full-stack
             applications with real-time features.
           </p>
@@ -86,11 +94,17 @@ export default function ProjectsSection() {
               onClick={() => setActiveCategory(cat.id)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-2 md:px-5 py-2 rounded-xl text-sm transition-all ${
+              className={`px-2  ${
+                theme === "dark"
+                  ? "text-white/70 hover:text-white/95 bg-white/5 border-white/10"
+                  : theme === "light"
+                  ? "text-black/80 bg-gray-200 border-white/40"
+                  : ""
+              } md:px-5 py-2 rounded-xl text-sm transition-all ${
                 activeCategory === cat.id
                   ? "bg-gradient-to-r from-[#FF6B00] to-[#FF8C00] text-white/90 shadow-lg shadow-orange-500/30"
-                  : "bg-white/5  text-white/70 border border-white/10 hover:border-[#FF6B00]/30 hover:text-white/95"
-              }`}
+                  : ""
+              } border hover:border-[#FF6B00]/30 `}
             >
               {cat.name}
             </motion.button>
@@ -108,7 +122,13 @@ export default function ProjectsSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.25 }}
-                className="relative rounded-2xl bg-[#111]/80 border border-white/10 overflow-hidden"
+                className={`relative rounded-2xl ${
+                  theme === "dark"
+                    ? "bg-[#111]/80"
+                    : theme === "light"
+                    ? "bg-gray-100"
+                    : ""
+                }  border border-white/10 overflow-hidden`}
               >
                 {/* Featured */}
                 {project.featured && (
@@ -148,31 +168,37 @@ export default function ProjectsSection() {
                 {/* Content */}
                 <div className="p-5">
                   {/* Title + MOBILE links */}
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="text-lg font-semibold text-white/80">
-                      {project.title}
-                    </h3>
+                  <div
+                    className={`flex ${
+                      theme === "dark"
+                        ? "text-white/80"
+                        : theme === "light"
+                        ? "text-black/80"
+                        : ""
+                    } items-center justify-between gap-2`}
+                  >
+                    <h3 className="text-lg font-semibold ">{project.title}</h3>
 
                     {/* Mobile links */}
                     <div className="flex gap-2 sm:hidden">
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        className="text-white/80"
-                      >
+                      <a href={project.demoUrl} target="_blank" className="">
                         <ExternalLink className="w-4 h-4" />
                       </a>
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        className="text-white/80"
-                      >
+                      <a href={project.githubUrl} target="_blank" className="">
                         <Github className="w-4 h-4" />
                       </a>
                     </div>
                   </div>
 
-                  <p className="text-sm text-white/70 mt-2 line-clamp-2">
+                  <p
+                    className={`text-sm${
+                      theme === "dark"
+                        ? "text-white/70"
+                        : theme === "light"
+                        ? "text-black/70"
+                        : ""
+                    } mt-2 line-clamp-2`}
+                  >
                     {project.description}
                   </p>
 
@@ -180,7 +206,13 @@ export default function ProjectsSection() {
                     {project.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="text-xs px-2 py-1 bg-white/5 border border-white/10 rounded-md text-white/60"
+                        className={`text-xs px-2 py-1 border rounded-md ${
+                          theme === "dark"
+                            ? "text-white/60 bg-white/5 border-white/10"
+                            : theme === "light"
+                            ? "text-black/80 bg-gray-300 border-black/30"
+                            : ""
+                        }`}
                       >
                         {tech}
                       </span>

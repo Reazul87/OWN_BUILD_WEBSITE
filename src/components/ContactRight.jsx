@@ -13,8 +13,10 @@ import {
 import Link from "next/link";
 import { socialIcons } from "@/data/socials";
 import emailjs from "@emailjs/browser";
+import { useTheme } from "@/context/ThemeProvider";
 
 export default function ContactRight() {
+  const { theme } = useTheme();
   const {
     register,
     handleSubmit,
@@ -23,7 +25,7 @@ export default function ContactRight() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     const templateParams = {
       name: data.name,
       email: data.email,
@@ -41,9 +43,8 @@ export default function ContactRight() {
         "gBwR6m0DS33gMqoc0"
       )
       .then((result) => {
-        console.log(result);
-
-        console.log("Email sent:", result.text);
+        // console.log(result);
+        // console.log("Email sent:", result.text);
         reset();
         alert("Message sent successfully!");
       })
@@ -54,10 +55,26 @@ export default function ContactRight() {
   };
 
   return (
-    <div className="rounded-2xl w-full border border-white/10 bg-black/40 p-4 md:p-8 text-white/70">
+    <div
+      className={`${
+        theme === "dark"
+          ? "bg-black/40 text-white/70"
+          : theme === "light"
+          ? "bg-base-200 shadow-sm text-black/90"
+          : ""
+      } rounded-2xl w-full border border-white/10 p-4 md:p-8`}
+    >
       {/* Title */}
       <h2 className="text-xl font-semibold mb-2">Send me a message</h2>
-      <p className="text-gray-500 text-sm mb-6">
+      <p
+        className={`${
+          theme === "dark"
+            ? "text-gray-500"
+            : theme === "light"
+            ? "text-black/70"
+            : ""
+        } text-sm mb-6`}
+      >
         Feel free to reach out for any queries or collaborations
       </p>
 
@@ -73,12 +90,24 @@ export default function ContactRight() {
               <input
                 placeholder="Your Name"
                 {...register("name", { required: "Name is required" })}
-                className="peer w-full rounded-lg bg-black border-2 border-white/20 px-8 pt-6 pb-2 text-white/75 focus:border-yellow-400 outline-none resize-none placeholder-transparent caret-teal-500"
+                className={`${
+                  theme === "dark"
+                    ? "bg-black text-white/75 border-white/20 hover:border-gray-600"
+                    : theme === "light"
+                    ? "border-black/20 hover:border-gray-400"
+                    : ""
+                } peer w-full rounded-lg border-2 px-8 pt-6 pb-2 focus:border-yellow-400 outline-none resize-none placeholder-transparent caret-teal-500`}
               />
 
               <label
-                className="absolute left-7 top-3 text-xs text-gray-400 transition-all
-               peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-focus:top-2 peer-focus:left-2 peer-focus:text-xs peer-focus:text-yellow-400 pointer-events-none"
+                className={`absolute left-7 top-3 text-xs ${
+                  theme === "dark"
+                    ? "text-gray-400 peer-placeholder-shown:text-gray-500"
+                    : theme === "light"
+                    ? "peer-placeholder-shown:text-gray-800"
+                    : ""
+                } transition-all
+               peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm  peer-focus:top-2 peer-focus:left-2 peer-focus:text-xs peer-focus:text-yellow-400 pointer-events-none`}
               >
                 Your Name
               </label>
@@ -99,16 +128,26 @@ export default function ContactRight() {
                 {...register("email", {
                   required: "Email is required",
                 })}
-                className="peer w-full rounded-lg bg-black border-2 border-white/20 px-8 pt-6 pb-2 text-white/75 focus:border-yellow-400 outline-none resize-none placeholder-transparent caret-teal-500"
+                className={`${
+                  theme === "dark"
+                    ? "bg-black text-white/75 border-white/20 hover:border-gray-600"
+                    : theme === "light"
+                    ? "border-black/20 hover:border-gray-400"
+                    : ""
+                } peer w-full rounded-lg border-2 px-8 pt-6 pb-2 focus:border-yellow-400 outline-none resize-none placeholder-transparent caret-teal-500`}
               />
-
               <label
-                className="absolute left-7 top-3 text-xs text-gray-400 transition-all
-               peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-focus:top-2 peer-focus:left-2 peer-focus:text-xs peer-focus:text-yellow-400 pointer-events-none"
+                className={`absolute left-7 top-3 text-xs ${
+                  theme === "dark"
+                    ? "text-gray-400 peer-placeholder-shown:text-gray-500"
+                    : theme === "light"
+                    ? "peer-placeholder-shown:text-gray-800"
+                    : ""
+                } transition-all
+               peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm  peer-focus:top-2 peer-focus:left-2 peer-focus:text-xs peer-focus:text-yellow-400 pointer-events-none`}
               >
                 Email
               </label>
-
               <Mail className="absolute top-4 peer-focus:top-6 left-2 h-4 w-4 text-yellow-600" />
             </div>
             {errors.email && (
@@ -125,16 +164,26 @@ export default function ContactRight() {
             <input
               placeholder="Phone Number (Optional)"
               {...register("phone")}
-              className="peer w-full rounded-lg bg-black border-2 border-white/20 px-8 pt-6 pb-2 text-white/75 focus:border-yellow-400 outline-none resize-none placeholder-transparent caret-teal-500"
+              className={`${
+                theme === "dark"
+                  ? "bg-black text-white/75 border-white/20 hover:border-gray-600"
+                  : theme === "light"
+                  ? "border-black/20 hover:border-gray-400"
+                  : ""
+              } peer w-full rounded-lg border-2 px-8 pt-6 pb-2 focus:border-yellow-400 outline-none resize-none placeholder-transparent caret-teal-500`}
             />
-
             <label
-              className="absolute left-7 top-3 text-xs text-gray-400 transition-all
-               peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-focus:top-2 peer-focus:left-2 peer-focus:text-xs peer-focus:text-yellow-400 pointer-events-none"
+              className={`absolute left-7 top-3 text-xs ${
+                theme === "dark"
+                  ? "text-gray-400 peer-placeholder-shown:text-gray-500"
+                  : theme === "light"
+                  ? "peer-placeholder-shown:text-gray-800"
+                  : ""
+              } transition-all
+               peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm  peer-focus:top-2 peer-focus:left-2 peer-focus:text-xs peer-focus:text-yellow-400 pointer-events-none`}
             >
               Phone Number (Optional)
             </label>
-
             <Phone className="absolute top-4 peer-focus:top-6 left-2 h-4 w-4 text-yellow-600" />
           </div>
 
@@ -142,16 +191,26 @@ export default function ContactRight() {
             <input
               {...register("subject", { required: "Subject is required" })}
               placeholder="Subject"
-              className="peer w-full rounded-lg bg-black border-2 border-white/20 px-8 pt-6 pb-2 text-white/75 focus:border-yellow-400 outline-none resize-none placeholder-transparent caret-teal-500"
+              className={`${
+                theme === "dark"
+                  ? "bg-black text-white/75 border-white/20 hover:border-gray-600"
+                  : theme === "light"
+                  ? "border-black/20 hover:border-gray-400"
+                  : ""
+              } peer w-full rounded-lg border-2 px-8 pt-6 pb-2 focus:border-yellow-400 outline-none resize-none placeholder-transparent caret-teal-500`}
             />
-
             <label
-              className="absolute left-7 top-3 text-xs text-gray-400 transition-all
-               peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-focus:top-2 peer-focus:left-2 peer-focus:text-xs peer-focus:text-yellow-400 pointer-events-none"
+              className={`absolute left-7 top-3 text-xs ${
+                theme === "dark"
+                  ? "text-gray-400 peer-placeholder-shown:text-gray-500"
+                  : theme === "light"
+                  ? "peer-placeholder-shown:text-gray-800"
+                  : ""
+              } transition-all
+               peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm  peer-focus:top-2 peer-focus:left-2 peer-focus:text-xs peer-focus:text-yellow-400 pointer-events-none`}
             >
               Subject
             </label>
-
             <NotebookText className="absolute top-4 peer-focus:top-6 left-2 h-4 w-4 text-yellow-600" />
             {errors.subject && (
               <p className="text-red-500 text-xs mt-1">
@@ -165,19 +224,30 @@ export default function ContactRight() {
         <div className="relative hover:scale-102 transition duration-200">
           <textarea
             rows="4"
-            {...register("message", { required: "Message is required" })}
-            className="peer w-full rounded-lg bg-black border-2 border-white/20 px-4 pt-6 pb-2
-       text-white/75 focus:border-yellow-400 outline-none resize-none
-       placeholder-transparent hover:border-gray-500"
             placeholder="Message"
+            {...register("message", { required: "Message is required" })}
+            className={`peer w-full rounded-lg ${
+              theme === "dark"
+                ? "bg-black text-white/75 border-white/20 hover:border-gray-600"
+                : theme === "light"
+                ? "border-black/20 hover:border-gray-400"
+                : ""
+            } border-2 px-4 pt-6 pb-2
+      focus:border-yellow-400 outline-none resize-none
+       placeholder-transparent`}
           />
 
           <label
-            className="absolute left-4 top-3 text-xs text-gray-400 transition-all 
-    peer-placeholder-shown:top-5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 
-    peer-focus:top-3 peer-focus:text-xs peer-focus:text-yellow-400 
-    pointer-events-none"
+            className={`absolute left-4 top-3 text-xs ${
+              theme === "dark"
+                ? "text-gray-400 peer-placeholder-shown:text-gray-500"
+                : theme === "light"
+                ? "peer-placeholder-shown:text-gray-800"
+                : ""
+            } transition-all
+               peer-placeholder-shown:top-5 peer-placeholder-shown:text-sm  peer-focus:top-3  peer-focus:text-xs peer-focus:text-yellow-400 pointer-events-none`}
           >
+            {" "}
             Message
           </label>
 
@@ -188,34 +258,17 @@ export default function ContactRight() {
           )}
         </div>
 
-        {/* ////////////////// */}
-        {/* <div className="relative hover:scale-102 transition duration-200">
-          <textarea
-            rows="4"
-            {...register("message", { required: "Message is required" })}
-            className="peer w-full rounded-lg bg-black border-2 border-white/20 px-4 pt-8 pb-2
-               text-white focus:border-yellow-400 outline-none resize-none
-               placeholder-transparent hover:border-gray-500 "
-            placeholder="Message"
-          />
-
-          <label className="absolute left-4 top-3 text-xs text-gray-400 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-focus:top-3 peer-focus:text-xs peer-focus:text-yellow-400">
-            Message
-          </label>
-
-          {errors.message && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.message.message}
-            </p>
-          )}
-        </div> */}
-        {/* ////////////////// */}
-
         {/* Button */}
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mx-auto flex items-center gap-2 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 px-7 md:px-15 py-3 font-bold cursor-pointer text-white/75 hover:scale-105 transition text-sm md:text-base"
+          className={`${
+            theme === "dark"
+              ? "text-white/75"
+              : theme === "light"
+              ? "text-black/80"
+              : ""
+          } mx-auto flex items-center gap-2 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 px-7 md:px-15 py-3 font-bold cursor-pointer hover:scale-105 transition text-sm md:text-base`}
         >
           Send Message
           <ArrowBigUpDash className="rotate-90 animate-bounce h-5 md:h-6" />
@@ -238,7 +291,15 @@ export default function ContactRight() {
           ))}
         </div>
         {/* Footer */}
-        <p className="text-center text-xs md:text-sm text-gray-500 mt-6">
+        <p
+          className={`text-center text-xs md:text-sm ${
+            theme === "dark"
+              ? "text-gray-500"
+              : theme === "light"
+              ? "text-black/75"
+              : ""
+          }  mt-6`}
+        >
           I will get back to you as soon as possible
         </p>
       </div>

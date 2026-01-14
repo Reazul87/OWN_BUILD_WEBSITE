@@ -4,14 +4,14 @@ import { Check, Monitor, Moon, Sun, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useTheme } from "./ThemeProvider";
+import { useTheme } from "@/context/ThemeProvider";
 import { socialIcons } from "@/data/socials";
+import NavLink from "./NavLink";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false); // theme dropdown
-  const [mobileOpen, setMobileOpen] = useState(false); // mobile menu
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const themeRef = useRef(null);
   const mobileMenuRef = useRef(null);
 
@@ -63,8 +63,16 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 mt-2 md:mt-4">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-full border border-white/10 bg-black/70 backdrop-blur-md px-5 py-3">
-          <div className="flex items-center justify-between">
+        <div
+          className={`relative rounded-full border border-white/20 backdrop-blur-md px-5 py-3 ${
+            theme === "dark"
+              ? "bg-black/70"
+              : theme === "light"
+              ? "bg-black/40"
+              : ""
+          }`}
+        >
+          <div className="flex items-center justify-between brightness-125">
             {/* Logo */}
             <Link href="/">
               <Image src={"/logo.png"} height={32} width={32} alt="logo" />
@@ -73,15 +81,19 @@ export default function Navbar() {
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-6 text-sm font-bold">
               {navItems.map((item) => (
-                <Link
+                <NavLink
                   key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className={`transition hover:text-white ${
-                    theme === "dark" ? "text-gray-300" : "text-gray-500"
+                  href={`#${item === "Home" ? "/" : item.toLowerCase()}`}
+                  className={`transition hover:text-orange-500 ${
+                    theme === "dark"
+                      ? "text-gray-400"
+                      : theme === "light"
+                      ? "text-black/95"
+                      : ""
                   }`}
                 >
                   {item}
-                </Link>
+                </NavLink>
               ))}
             </nav>
 
@@ -94,7 +106,13 @@ export default function Navbar() {
                     key={icon.link}
                     href={icon.link}
                     target="_blank"
-                    className="rounded-full bg-white/5 border border-white/10 p-2 transition hover:bg-white/10"
+                    className={`rounded-full ${
+                      theme === "dark"
+                        ? "bg-white/20 hover:bg-white/10 border-white/20"
+                        : theme === "light"
+                        ? "border-white/30 bg-black/10 hover:bg-black/20"
+                        : ""
+                    } border  p-2 transition  brightness-150`}
                   >
                     <Image
                       src={`/${icon.img}.png`}
@@ -110,11 +128,17 @@ export default function Navbar() {
               <div className="relative" ref={themeRef}>
                 <button
                   onClick={() => setIsOpen((prev) => !prev)}
-                  className="p-2 text-gray-400 hover:text-white"
+                  className={`p-2 ${
+                    theme === "dark"
+                      ? "text-gray-400"
+                      : theme === "light"
+                      ? "text-black/95"
+                      : ""
+                  } hover:text-white/90 cursor-pointer`}
                 >
                   {theme === "light" && <Sun size={20} />}
                   {theme === "dark" && <Moon size={20} />}
-                  {theme === "system" && <Monitor size={20} />}
+                  {/* {theme === "system" && <Monitor size={20} />} */}
                 </button>
 
                 {isOpen && (
@@ -132,13 +156,13 @@ export default function Navbar() {
                       label="Dark"
                       color="text-orange-500"
                     />
-                    <ThemeOption
+                    {/* <ThemeOption
                       active={theme === "system"}
                       onClick={() => handleThemeChange("system")}
                       icon={<Monitor size={16} />}
                       label="System"
                       color="text-green-500"
-                    />
+                    /> */}
                   </div>
                 )}
               </div>
@@ -146,7 +170,7 @@ export default function Navbar() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileOpen((prev) => !prev)}
-                className="md:hidden p-2 text-gray-400 hover:text-white"
+                className="md:hidden p-2 text-black/95 hover:text-white"
               >
                 {mobileOpen ? <X size={22} /> : <Menu size={22} />}
               </button>
@@ -162,14 +186,15 @@ export default function Navbar() {
               <div className="rounded-2xl border border-white/10 bg-black/90 backdrop-blur-md p-4 space-y-4">
                 <nav className="flex flex-col gap-3 text-gray-300">
                   {navItems.map((item) => (
-                    <Link
+                    <NavLink
                       key={item}
-                      href={`#${item.toLowerCase()}`}
-                      onClick={() => setMobileOpen(false)}
-                      className="transition hover:text-white"
+                      href={`#${item === "Home" ? "/" : item.toLowerCase()}`}
+                      className={`transition hover:text-orange-500 ${
+                        theme === "dark" ? "text-gray-300" : "text-gray-500"
+                      }`}
                     >
                       {item}
-                    </Link>
+                    </NavLink>
                   ))}
                 </nav>
 

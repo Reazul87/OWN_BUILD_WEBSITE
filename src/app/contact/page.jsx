@@ -4,10 +4,7 @@ import React from "react";
 
 const ContactPage = () => {
   return (
-    <section
-      id="contact"
-      className="min-h-screen bg-black px-6 py-10 text-white/70"
-    >
+    <section id="contact" className={`min-h-screen  px-6 py-10 text-white/70`}>
       <h2 className="text-2xl sm:text-3xl text-center lg:text-4xl font-bold">
         <span className="text-[#FF6B00]">Contact </span>With Me
       </h2>

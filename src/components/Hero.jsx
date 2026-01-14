@@ -6,8 +6,10 @@ import Link from "next/link";
 import { View } from "lucide-react";
 import { Typewriter } from "react-simple-typewriter";
 import Image from "next/image";
+import { useTheme } from "@/context/ThemeProvider";
 
 const Hero = () => {
+  const { theme } = useTheme();
   const words = ["A Full Stack Developer.", "A Mern Stack Developer."];
   const fadeInUp = {
     hidden: { opacity: 0, y: 16 },
@@ -15,7 +17,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="overflow-hidden text-white/70 px-4 sm:px-6 py-8 md:py-14">
+    <section className="overflow-hidden px-4 sm:px-6 py-8 md:py-14">
       <div className="mx-auto max-w-5xl flex flex-col md:flex-row items-center gap-10 md:gap-14">
         <div className="relative flex items-center justify-center w-60 h-60 sm:w-70 sm:h-70 md:w-74 md:h-74">
           <motion.div
@@ -86,16 +88,24 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start pt-2"
           >
             <a
-              href="https://drive.google.com/file/d/1PLHLzziKQsbhDBqOXdtoXP4o_CdjuD2p/view"
+              href="/Resume.pdf"
+              download="Md. Reazul Hasan's Proffessional Resume.pdf"
               target="_blank"
-              className="flex items-center justify-center gap-2 bg-orange-500 text-white/90 px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition"
+              className="flex items-center justify-center gap-2 bg-orange-500 text-white/75 px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition"
             >
-              <View size={18} /> View Resume
+              <View size={18} />
+              Download Resume
             </a>
 
             <Link
               href="#projects"
-              className="flex items-center justify-center gap-2 border border-orange-300 text-orange-500 px-6 py-3 rounded-xl font-semibold hover:bg-orange-50 transition"
+              className={`flex items-center justify-center gap-2 border border-orange-300 text-orange-500 px-6 py-3 rounded-xl transition font-semibold ${
+                theme === "dark"
+                  ? "hover:bg-orange-50 text-orange-500"
+                  : theme === "light"
+                  ? "hover:bg-orange-500 hover:text-white/75"
+                  : ""
+              }`}
             >
               <HiOutlineEye size={18} /> Explore Projects
             </Link>

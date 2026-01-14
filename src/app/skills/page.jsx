@@ -9,6 +9,7 @@ import {
   Wrench,
   MoreHorizontal,
 } from "lucide-react";
+import { useTheme } from "@/context/ThemeProvider";
 
 const categories = [
   { id: "frontend", name: "Frontend", icon: Code },
@@ -23,16 +24,16 @@ const skills = {
   frontend: [
     { name: "JavaScript", level: 95, color: "#F7DF1E", featured: true },
     { name: "React", level: 92, color: "#61DAFB", featured: true },
-    { name: "Next.js", level: 85, color: "#ffffff", featured: true },
+    { name: "Next.js", level: 85, color: "#546c6e", featured: true },
     { name: "Tailwind CSS", level: 90, color: "#06B6D4", featured: true },
     { name: "HTML5", level: 95, color: "#E34F26" },
     { name: "CSS3", level: 92, color: "#1572B6" },
-    { name: "Framer Motion", level: 80, color: "#FF0055" },
-    { name: "Shadcn UI", level: 85, color: "#ffffff" },
+    { name: "Framer Motion", level: 80, color: "#FF0B35" },
+    { name: "Shadcn UI", level: 85, color: "#29cad9" },
   ],
   backend: [
     { name: "Node.js", level: 85, color: "#339933", featured: true },
-    { name: "Express.js", level: 82, color: "#ffffff" },
+    { name: "Express.js", level: 82, color: "#6b79c7" },
     // { name: "Socket.IO", level: 78, color: "#010101", featured: true },
     { name: "REST APIs", level: 88, color: "#FF6B00" },
   ],
@@ -61,12 +62,19 @@ const skills = {
 };
 
 export default function SkillsSection() {
+  const { theme } = useTheme();
   const [activeCategory, setActiveCategory] = useState("frontend");
 
   return (
     <section
       id="skills"
-      className="relative py-2 md:py-8 overflow-hidden text-white/70"
+      className={`relative py-2 md:py-8 overflow-hidden ${
+        theme === "dark"
+          ? "text-white/70"
+          : theme === "light"
+          ? "text-black/90"
+          : ""
+      }`}
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
@@ -149,10 +157,16 @@ export default function SkillsSection() {
                 onClick={() => setActiveCategory(category.id)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium text-sm transition-all ${
+                className={`${
+                  theme === "dark"
+                    ? "text-white/70 bg-white/5 border-white/10 hover:border-[#FF6B00]/30 hover:text-white/95"
+                    : theme === "light"
+                    ? "text-black/80 border-gray-300  bg-gray-100 hover:border-[#FF6B00]/30 hover:text-black/95"
+                    : ""
+                } flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium text-sm transition-all border ${
                   isActive
                     ? "bg-gradient-to-r from-[#FF6B00] to-[#FF8C00] text-white/90 shadow-lg shadow-orange-500/30"
-                    : "bg-white/5  text-white/70 border border-white/10 hover:border-[#FF6B00]/30 hover:text-white/95"
+                    : ""
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -179,10 +193,10 @@ export default function SkillsSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className={`group relative p-4 rounded-2xl backdrop-blur-sm transition-all cursor-default ${
+                className={`group relative p-4 rounded-2xl backdrop-blur-sm transition-all cursor-default border ${
                   skill.featured
-                    ? "bg-gradient-to-br from-[#FF6B00]/20 to-transparent border border-[#FF6B00]/30"
-                    : "bg-white/5 border border-white/10 hover:border-[#FF6B00]/30"
+                    ? "bg-gradient-to-br from-[#FF6B00]/20 to-transparent border-[#FF6B00]/30"
+                    : "bg-white/5 border-black/10 hover:border-[#FF6B00]/30"
                 }`}
               >
                 {/* Glow effect on hover */}
@@ -202,7 +216,15 @@ export default function SkillsSection() {
                   </div>
 
                   {/* Skill Name */}
-                  <h3 className="font-semibold text-white/80 text-sm mb-2">
+                  <h3
+                    className={`font-semibold ${
+                      theme === "dark"
+                        ? "text-white/80"
+                        : theme === "light"
+                        ? "text-black/80"
+                        : ""
+                    } text-sm mb-2`}
+                  >
                     {skill.name}
                     {/* {skill.name === "Shadcn UI" ? " learning" : ""} */}
                   </h3>
@@ -222,7 +244,15 @@ export default function SkillsSection() {
                   </div>
 
                   {/* Level Indicator */}
-                  <span className="text-xs text-white/70 mt-1 block">
+                  <span
+                    className={`text-xs ${
+                      theme === "dark"
+                        ? "text-white/70"
+                        : theme === "light"
+                        ? "text-black/70"
+                        : ""
+                    } mt-1 block`}
+                  >
                     {skill.level}%
                   </span>
 
@@ -235,30 +265,6 @@ export default function SkillsSection() {
             ))}
           </motion.div>
         </AnimatePresence>
-
-        {/* JavaScript Ecosystem Highlight */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-16 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#FF6B00]/10 to-transparent border border-[#FF6B00]/20 backdrop-blur-sm"
-        >
-          <div className="flex flex-col sm:flex-row items-center gap-6">
-            <div className="w-20 h-20 rounded-2xl bg-[#F7DF1E]/20 border border-[#F7DF1E]/30 flex items-center justify-center shrink-0">
-              <span className="text-[#F7DF1E] text-3xl font-bold">JS</span>
-            </div>
-            <div className="text-center sm:text-left">
-              <h3 className="text-xl font-bold text-white/70 mb-2">
-                JavaScript Ecosystem Specialist
-              </h3>
-              <p className="text-white/70">
-                My primary focus is on the JavaScript ecosystem – from vanilla
-                JS to React, Next.js, and Node.js. I build everything from
-                interactive UIs to real-time applications.
-              </p>
-            </div>
-          </div>
-        </motion.div> */}
       </div>
     </section>
   );
