@@ -28,7 +28,7 @@ const Hero = () => {
               repeat: Infinity,
               ease: "linear",
             }}
-            className="absolute inset-0 rounded-full border-[8px] sm:border-[10px] border-orange-200 border-t-orange-500 will-change-transform"
+            className="absolute inset-0 rounded-full border-8 sm:border-10 border-orange-200 border-t-orange-500 will-change-transform"
           />
 
           {/* Image */}
@@ -57,7 +57,7 @@ const Hero = () => {
             variants={fadeInUp}
             className="text-3xl sm:text-4xl md:text-5xl font-bold"
           >
-            Hello, I'm <span className="text-orange-500">Md Reazul Hasan</span>
+            Hello, {`I'm`} <span className="text-orange-500">Md Reazul Hasan</span>
           </motion.h1>
 
           <div className="text-xl md:text-2xl font-medium font-swap">

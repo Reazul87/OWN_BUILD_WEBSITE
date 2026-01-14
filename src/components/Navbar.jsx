@@ -181,7 +181,7 @@ export default function Navbar() {
           {mobileOpen && (
             <div
               ref={mobileMenuRef} // <-- Attach ref here
-              className="fixed top-[80px] inset-x-2 z-[999] md:hidden"
+              className="fixed top-20 inset-x-2 z-999 md:hidden"
             >
               <div className="rounded-2xl border border-white/10 bg-black/90 backdrop-blur-md p-4 space-y-4">
                 <nav className="flex flex-col gap-3 text-gray-300">
@@ -203,7 +203,7 @@ export default function Navbar() {
                     <Link
                       key={icon.img}
                       href={icon.link}
-                      className="flex-shrink-0 rounded-full bg-white/5 border border-white/10 p-2"
+                      className="shrink-0 rounded-full bg-white/5 border border-white/10 p-2"
                     >
                       <Image
                         src={`/${icon.img}.png`}
